@@ -61,8 +61,8 @@ public class ProductModel {
         return productId;
     }
 
-    public void setProductId(ProductId productId) {
-        this.productId = productId;
+    public void setProductId(String productId) {
+        this.productId.id = productId;
     }
 
 }

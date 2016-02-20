@@ -21,7 +21,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:src="@drawable/gecici_deterjan" />
+            android:src="@drawable/otuz_logo" />
 
         <LinearLayout
             android:id="@+id/walkthrough_ball_container"
@@ -30,21 +30,60 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_centerHorizontal="true"
-            android:layout_above="@+id/facebook_login"
+            android:layout_above="@+id/bottom_button_holder"
             android:layout_marginBottom="16dp"/>
 
         <LinearLayout
-            android:id="@+id/facebook_login"
+            android:id="@+id/bottom_button_holder"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:gravity="center_horizontal"
             android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/colorAccent">
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/facebook_login"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:background="@drawable/selector_login_with_facebook_button"
+                android:visibility="gone">
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fb_logo"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="14dp"
+                    android:textColor="@color/grey_tone_1"
+                    android:text="@string/login_with_facebook"/>
 
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                android:text="@string/next_button"/>
 
         </LinearLayout>
 

@@ -17,9 +17,16 @@ import java.util.List;
  */
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
 
+    // List of products.
     private List<ProductModel> products;
+    // Identifier of a layout which will be inflated.
     private int itemRow;
 
+    /**
+     * Constructor of adapter.
+     * @param products Shopping cart product which will be listed.
+     * @param itemRow Identifier for infilating row layout for every product.
+     */
     public ProductRecyclerViewAdapter(List<ProductModel> products, int itemRow) {
         this.products   = products;
         this.itemRow    = itemRow;

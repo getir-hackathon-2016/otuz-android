@@ -2,23 +2,52 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.otuz">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".controller.Activity.ShoppingCartActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme"
+        android:name="com.otuz.controller.BaseApplication">
+
+        <!-- Meta-Datas -->
+        <!-- App ID for Facebook SDK. -->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <!-- /Meta-Datas -->
+
+        <!-- Activities -->
+        <activity android:name=".controller.activity.ShoppingCartActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
-        <activity android:name=".controller.Activity.WalkthroughActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".controller.activity.WalkthroughActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity android:name=".controller.activity.SplashScreenActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- FacebookActivity must be added here for login and share with SDK operations.-->
+        <activity android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" />
+        <!-- /Activities -->
+
+        <!-- Broadcast Receivers -->
+        <receiver android:name=".broadcastreceiver.ConnectivityBroadcastReceiver"/>
+        <!-- /Broadcast Receivers -->
+
+        <!-- Content Providers -->
+        <!-- This Content Provider is necessary for using Facebook SDK. Digits at the end of the "authorities" value is project's Facebook App ID-->
+        <provider android:authorities="com.facebook.app.FacebookContentProvider541610956001038" android:name="com.facebook.FacebookContentProvider" android:exported="true" />
+        <!-- /Content Providers -->
+
     </application>
 
 </manifest>

@@ -2,9 +2,12 @@
 
     <string name="app_name">otuz</string>
 
-    <!-- ShoppingCartActivity Strings -->
-    <string name="user_cart_title">Sepet</string>
-    <!-- /ShoppingCartActivity Strings -->
+    <!-- Facebook App ID -->
+    <string name="facebook_app_id">541610956001038</string>
+
+    <!-- WalkthroughActivity Strings -->
+    <string name="splash_screen_online_error">İnternet bağlantınızı kontrol edin</string>
+    <!-- /WalkthroughActivity Strings -->
 
     <!-- WalkthroughActivity Strings -->
     <string name="walkthrough_title_1">Title 1</string>
@@ -13,6 +16,16 @@
     <string name="walkthrough_description_1">Description 1</string>
     <string name="walkthrough_description_2">Description 2</string>
     <string name="walkthrough_description_3">Description 3</string>
+    <string name="next_button">Devam</string>
+    <string name="login_with_facebook">Facebook ile Giriş Yap</string>
     <!-- /WalkthroughActivity Strings -->
+
+    <!-- ShoppingCartActivity Strings -->
+    <string name="user_cart_title">Sepet</string>
+    <!-- /ShoppingCartActivity Strings -->
+
+    <!-- Warning Strings -->
+    <string name="warning_1">İstek başarısız</string>
+    <!-- /Warning Strings -->
 
 </resources>
