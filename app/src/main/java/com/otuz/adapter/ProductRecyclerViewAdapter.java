@@ -1,6 +1,8 @@
 package com.otuz.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.otuz.R;
 import com.otuz.model.ProductModel;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -21,15 +27,17 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     private List<ProductModel> products;
     // Identifier of a layout which will be inflated.
     private int itemRow;
+    private Context context;
 
     /**
      * Constructor of adapter.
      * @param products Shopping cart product which will be listed.
      * @param itemRow Identifier for infilating row layout for every product.
      */
-    public ProductRecyclerViewAdapter(List<ProductModel> products, int itemRow) {
+    public ProductRecyclerViewAdapter(List<ProductModel> products, int itemRow, Context context) {
         this.products   = products;
         this.itemRow    = itemRow;
+        this.context    = context;
     }
 
     @Override
@@ -43,9 +51,38 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         ProductModel productItem = products.get(position);
         holder.productName.setText(productItem.getName());
         holder.productCount.setText(productItem.getQuantity());
-        //holder.image.setImageBitmap(null);
-        //Picasso.with(holder.image.getContext()).cancelRequest(holder.image);
-        //Picasso.with(holder.image.getContext()).load(item.getImage()).into(holder.image);
+//        holder.productImage.setImageBitmap(null);
+//        Picasso.with(holder.productImage.getContext()).cancelRequest(holder.productImage);
+//        Picasso.with(holder.productImage.getContext()).load(productItem.getPhotoUrl()).into(holder.productImage);
+        final String photoUrl = productItem.getPhotoUrl();
+        final ImageView productPhotoImageView = holder.productImage;
+        Picasso.with(context)
+                .load(photoUrl)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(productPhotoImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onError() {
+                        Picasso.with(context)
+                                .load(photoUrl)
+                                .error(R.drawable.gecici_harita)
+                                .into(productPhotoImageView, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Log.e("Picasso", "Could not fetch image");
+                                    }
+                                });
+                    }
+                });
+
         holder.itemView.setTag(productItem);
     }
 

@@ -11,7 +11,7 @@ public class ProductModel {
                     price,
                     quantity;
 
-    private ProductId productId;
+    private ProductId productId = new ProductId();
 
     class ProductId{
         String id;
@@ -57,8 +57,8 @@ public class ProductModel {
         this.quantity = quantity;
     }
 
-    public ProductId getProductId() {
-        return productId;
+    public String getProductId() {
+        return productId.id;
     }
 
     public void setProductId(String productId) {

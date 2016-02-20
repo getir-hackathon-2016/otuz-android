@@ -1,6 +1,9 @@
 package com.otuz.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -247,11 +250,16 @@ public class HttpFailStatusCodeHandler {
 
         if(codeIsHttpStatusCode) {
             Log.e("Http status", "Code : " + statusCode + " - Message : " + statusMessage);
-            Toast.makeText(context, context.getResources().getString(R.string.warning_1), Toast.LENGTH_SHORT).show();
+            showSnackBar(((AppCompatActivity) context), context.getResources().getString(R.string.warning_1) + " : " + statusMessage);
         }
 
         return codeIsHttpStatusCode;
 
+    }
+
+    private void showSnackBar(Activity _activity, String _text){
+        Snackbar snackbar = Snackbar.make(_activity.findViewById(android.R.id.content), _text, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
 }

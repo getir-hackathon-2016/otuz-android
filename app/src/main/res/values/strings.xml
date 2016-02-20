@@ -26,12 +26,24 @@
 
     <!-- Warning Strings -->
     <string name="warning_1">İstek başarısız</string>
+    <string name="warning_2">İptal edildi</string>
+    <string name="warning_3">Beklenmeyen hata</string>
     <!-- /Warning Strings -->
+
+    <!-- Success Strings -->
+    <string name="success_1">Biten ürün listeye eklendi</string>
+    <!-- /Success Strings -->
 
     <!-- API Error Strings -->
     <string name="api_error_1">Veritabanı başarısız</string>
     <string name="api_error_2">Bulunamadı</string>
     <string name="api_error_3">Ürün bulunamadı</string>
     <!-- /API Error Strings -->
+
+    <!-- DialogButton Strings -->
+    <string name="product_info_title">Ürünü onaylayın</string>
+    <string name="positive_1">Tamam</string>
+    <string name="negative_1">İptal</string>
+    <!-- /DialogButton Strings -->
 
 </resources>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.otuz">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.otuz">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,21 +20,25 @@
         <!-- /Meta-Datas -->
 
         <!-- Activities -->
-        <activity android:name=".controller.activity.ShoppingCartActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
-
+        <activity android:name=".controller.activity.SplashScreenActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".controller.activity.WalkthroughActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
-        <activity android:name=".controller.activity.SplashScreenActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".controller.activity.ShoppingCartActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity android:name=".controller.activity.BarcodeScanActivity" android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <!-- FacebookActivity must be added here for login and share with SDK operations.-->
         <activity android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" />
         <!-- /Activities -->

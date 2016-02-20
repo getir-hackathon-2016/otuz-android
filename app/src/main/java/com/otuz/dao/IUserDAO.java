@@ -12,4 +12,6 @@ public interface IUserDAO {
 
     DAOResponse saveUser(String facebookUserId);
 
+    DAOResponse saveNewUserProduct(String facebookUserId, String productId);
+
 }

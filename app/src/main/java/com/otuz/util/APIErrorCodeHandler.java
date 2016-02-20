@@ -1,6 +1,9 @@
 package com.otuz.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -40,8 +43,13 @@ public class APIErrorCodeHandler {
         }
 
         Log.e("API Error", "Code : " + errorCode + " - Message : " + errorMessage);
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+        showSnackBar(((AppCompatActivity)context), errorMessage);
 
+    }
+
+    private void showSnackBar(Activity _activity, String _text){
+        Snackbar snackbar = Snackbar.make(_activity.findViewById(android.R.id.content), _text, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
 }
