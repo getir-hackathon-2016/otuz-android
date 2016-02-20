@@ -1,4 +1,4 @@
-package com.otuz.controller.Fragment;
+package com.otuz.controller.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.otuz.controller.Activity;
+package com.otuz.controller.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

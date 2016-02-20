@@ -1,17 +1,43 @@
-package com.otuz.controller.Activity;
+package com.otuz.controller.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.otuz.R;
-import com.otuz.controller.Fragment.WalkthroughContainerFragment;
+import com.otuz.controller.BaseApplication;
+import com.otuz.controller.fragment.WalkthroughContainerFragment;
+import com.otuz.dao.IUserDAO;
+import com.otuz.dao.UserDAOImpl;
+import com.otuz.model.DAOResponse;
+import com.otuz.model.UserModel;
 import com.otuz.model.WalkthroughModel;
+import com.otuz.util.APIErrorCodeHandler;
+import com.otuz.util.HttpFailStatusCodeHandler;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -20,26 +46,168 @@ import java.util.ArrayList;
  */
 public class WalkthroughActivity extends AppCompatActivity {
 
+    // A CallbackManager for setting it up to Facebook's LoginButton.
+    private CallbackManager callbackManager;
+    // A Profile class for holding logged in Facebook user's data.
+    private Profile userFacebookProfile;
+    // Facebook login button.
+    private LoginButton facebookSDKLoginButton;
+
     // For holding walkthrough pages.
     private ViewPager viewPager;
     // Number of walkthrough pages.
     private int numberOfViewPagerChildren;
     // An ArrayList which holds walkthrough pages (fragment) for giving them to ViewPager's FragmentStatePagerAdapter.
     private ArrayList<Fragment> walkthroughFragmentList = new ArrayList<>();
-    // An ArrayList which holds oval backgrounded View's. These are page number indicators.
+    // An ArrayList which holds oval backgrounded View's. These are page number indicator balls.
     private ArrayList<View> ballList;
+
+    private TextView nextButton;
+    private LinearLayout facebookLogin;
+
+    private View.OnClickListener nextButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (viewPager.getCurrentItem() < numberOfViewPagerChildren - 1)
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            if(viewPager.getCurrentItem() == numberOfViewPagerChildren - 1){
+                nextButton.setVisibility(View.GONE);
+                facebookLogin.setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
+    private View.OnClickListener facebookLoginButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // Calling Facebook SDK login button's onClick method when our custom button clicked.
+            facebookSDKLoginButton.callOnClick();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        // Initialize FacebookSdk before setContentView().
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_walkthrough);
 
-        viewPager = (ViewPager) findViewById(R.id.walkthrough_view_pager);
+        viewPager       = (ViewPager) findViewById(R.id.walkthrough_view_pager);
+        nextButton      = (TextView) findViewById(R.id.next_button);
+        facebookLogin   = (LinearLayout) findViewById(R.id.facebook_login);
+
+        facebookSDKLoginButton = (LoginButton)findViewById(R.id.facebook_login_button);
+
+        // Setting up CallbackManager and AccessTokenTracker for Facebook Login.
+        callbackManager = CallbackManager.Factory.create();
+
+        // Setting up Facebook login permissions. (Just request for public profile data in this case)
+        facebookSDKLoginButton.setReadPermissions("public_profile");
+
+        // Callback registration for Facebook login.
+        facebookSDKLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            /**
+             * If logging in operation successfully completed.
+             * @param loginResult It has the access token and permissions.
+             */
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                Log.d("FB loginResult ", "Granted Permissions                      = " + loginResult.getRecentlyGrantedPermissions() + "");
+                Log.d("FB loginResult ", "Denied Permissions                       = " + loginResult.getRecentlyDeniedPermissions() + "");
+                Log.d("FB loginResult ", "Access Token                             = " + loginResult.getAccessToken() + "");
+                Log.d("FB loginResult ", "Access Token getApplicationId()          = " + loginResult.getAccessToken().getApplicationId() + "");
+                Log.d("FB loginResult ", "Access Token getToken()                  = " + loginResult.getAccessToken().getToken() + "");
+                Log.d("FB loginResult ", "Access Token getUserId()                 = " + loginResult.getAccessToken().getUserId() + "");
+                Log.d("FB loginResult ", "Access Token getDeclinedPermissions()    = " + loginResult.getAccessToken().getDeclinedPermissions() + "");
+                Log.d("FB loginResult ", "Access Token getExpires()                = " + loginResult.getAccessToken().getExpires() + "");
+                Log.d("FB loginResult ", "Access Token getLastRefresh()            = " + loginResult.getAccessToken().getLastRefresh() + "");
+                Log.d("FB loginResult ", "Access Token getPermissions()            = " + loginResult.getAccessToken().getPermissions() + "");
+                Log.d("FB loginResult ", "Access Token getSource()                 = " + loginResult.getAccessToken().getSource() + "");
+                Log.d("FB loginResult ", "Access Token isExpired()                 = " + loginResult.getAccessToken().isExpired() + "");
+
+                // If Facebook login operation is successfull then send a register request to API for saving this user or if he/she already registered just perform a login operation.
+                final Handler loginRequestHandler = new Handler();
+                Thread loginRequestThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        IUserDAO userDAO = new UserDAOImpl();
+                        final DAOResponse daoResponse = userDAO.saveUser(loginResult.getAccessToken().getUserId());
+
+                        // Handling server response for register/login request.
+                        loginRequestHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (daoResponse.getError().getErrorCode() == 0) {
+                                    // Success.
+                                    UserModel userModel = (UserModel) daoResponse.getObject();
+
+                                    // Store User data locally but temporary.
+                                    BaseApplication.setUserModel(userModel);
+
+                                    startActivity(new Intent(WalkthroughActivity.this, ShoppingCartActivity.class));
+                                    WalkthroughActivity.this.finish();
+
+                                } else {
+                                    // Check if the error code is a Http status code.
+                                    HttpFailStatusCodeHandler httpFailStatusCodeHandler = new HttpFailStatusCodeHandler(WalkthroughActivity.this);
+                                    if (!httpFailStatusCodeHandler.handleCode(daoResponse.getError().getErrorCode())) {
+                                        // Error code isn't a Http status code, then it should be an API error code. So handle it.
+                                        APIErrorCodeHandler apiErrorCodeHandler = new APIErrorCodeHandler(WalkthroughActivity.this);
+                                        apiErrorCodeHandler.handleErrorCode(daoResponse.getError().getErrorCode());
+                                    }
+
+                                }
+
+                            }
+                        });
+                    }
+                });
+                loginRequestThread.start();
+
+            }
+
+            /**
+             * Facebook Login Activity opened but user pressed back and canceled the process.
+             */
+            @Override
+            public void onCancel() {
+                Toast.makeText(WalkthroughActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+            }
+
+            /**
+             * A FacebookException occured during the logging in.
+             * @param exception A FacebookException instance.
+             */
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(WalkthroughActivity.this, "An error occured when logging in", Toast.LENGTH_SHORT).show();
+                Log.e("FacebookException ", exception.toString());
+            }
+
+        });
+
         // Load all fragments.
         viewPager.setOffscreenPageLimit(2);
 
         setUpViewPager();
+
+        nextButton.setOnClickListener(nextButtonOnClickListener);
+        facebookLogin.setOnClickListener(facebookLoginButtonOnClickListener);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Facebook callbackManager.onActivityResult() should be called here.
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 
@@ -81,9 +249,9 @@ public class WalkthroughActivity extends AppCompatActivity {
             View ball = new View(this);
             ball.setLayoutParams(params);
             if (a == 0) {
-                ball.setBackgroundResource(R.drawable.walkthrough_ball_focus);
+                ball.setBackground(ContextCompat.getDrawable(WalkthroughActivity.this, R.drawable.walkthrough_ball_focus));
             } else {
-                ball.setBackgroundResource(R.drawable.walkthrough_ball_blur);
+                ball.setBackground(ContextCompat.getDrawable(WalkthroughActivity.this, R.drawable.walkthrough_ball_blur));
             }
             walkthroughBallContainer.addView(ball);
             ballList.add(a, ball);
@@ -107,11 +275,11 @@ public class WalkthroughActivity extends AppCompatActivity {
                 View ball;
                 // Get the previously selected ball and change it's background to "not selected".
                 ball = ballList.get(previouslySelected);
-                ball.setBackgroundResource(R.drawable.onboarding_ball_blur);
+                ball.setBackground(ContextCompat.getDrawable(WalkthroughActivity.this, R.drawable.walkthrough_ball_blur));
 
                 // Get the current ball and change it's background to "selected".
                 ball = ballList.get(i);
-                ball.setBackgroundResource(R.drawable.onboarding_ball_focus);
+                ball.setBackground(ContextCompat.getDrawable(WalkthroughActivity.this, R.drawable.walkthrough_ball_focus));
 
                 // Previously selected ball will be the current one when the next page change occured.
                 previouslySelected = i;
