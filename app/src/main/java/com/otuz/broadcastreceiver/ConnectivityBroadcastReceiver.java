@@ -21,7 +21,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        // Set OnConnectivityTypeChangedListener interface.
+        // Set OnNetworkConnectivityChangedListener interface.
         setOnConnectivityTypeChangedListener(context);
 
         if (connectivityTypeChangedListener != null) {

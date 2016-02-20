@@ -28,4 +28,10 @@
     <string name="warning_1">İstek başarısız</string>
     <!-- /Warning Strings -->
 
+    <!-- API Error Strings -->
+    <string name="api_error_1">Veritabanı başarısız</string>
+    <string name="api_error_2">Bulunamadı</string>
+    <string name="api_error_3">Ürün bulunamadı</string>
+    <!-- /API Error Strings -->
+
 </resources>
