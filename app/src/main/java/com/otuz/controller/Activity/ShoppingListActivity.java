@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -101,12 +102,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-        final Toolbar toolbar       = (Toolbar) findViewById(R.id.toolbar);
-        final ImageView mapButton   = (ImageView) findViewById(R.id.map_button);
-        RecyclerView recyclerView   = (RecyclerView) findViewById(R.id.recycler_view);
-        chooseDateButton            = (TextView) findViewById(R.id.choose_date_button);
-        emptyListMessage            = (TextView) findViewById(R.id.empty_list_message);
-        confirmShoppingListButton   = (TextView) findViewById(R.id.confirm_shopping_list);
+        final Toolbar toolbar           = (Toolbar) findViewById(R.id.toolbar);
+        final RelativeLayout mapButton  = (RelativeLayout) findViewById(R.id.map_button);
+        RecyclerView recyclerView       = (RecyclerView) findViewById(R.id.recycler_view);
+        chooseDateButton                = (TextView) findViewById(R.id.choose_date_button);
+        emptyListMessage                = (TextView) findViewById(R.id.empty_list_message);
+        confirmShoppingListButton       = (TextView) findViewById(R.id.confirm_shopping_list);
 
         toolbar.setTitle(getResources().getString(R.string.user_cart_title));
         setSupportActionBar(toolbar);

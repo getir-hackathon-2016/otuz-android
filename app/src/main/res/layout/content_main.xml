@@ -17,8 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:weightSum="3"
-        android:layout_marginTop="-50dp"
+        android:weightSum="5"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
 
@@ -28,6 +27,8 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:background="@color/grey_tone_2"
             android:textColor="@color/white"
             android:text="@string/warning_6"/>
@@ -36,11 +37,29 @@
             android:id="@+id/confirm_shopping_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:background="@color/colorAccent"
             android:textColor="@color/white"
             android:text="@string/warning_7"/>
+
+        <RelativeLayout
+            android:id="@+id/map_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/grey_tone_2">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:src="@drawable/profile"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
