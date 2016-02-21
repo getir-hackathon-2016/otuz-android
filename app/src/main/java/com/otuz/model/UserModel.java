@@ -3,6 +3,7 @@ package com.otuz.model;
 import java.util.ArrayList;
 
 /**
+ * A POJO for user details.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class UserModel {
@@ -10,6 +11,7 @@ public class UserModel {
     private String  id,
                     facebookUserId,
                     registeredAt;
+    private AddressModel addressModel;
     private ArrayList<ProductModel> userProducts;
 
     public String getId() {
@@ -42,5 +44,13 @@ public class UserModel {
 
     public void setUserProducts(ArrayList<ProductModel> userProducts) {
         this.userProducts = userProducts;
+    }
+
+    public AddressModel getAddressModel() {
+        return addressModel;
+    }
+
+    public void setAddressModel(AddressModel addressModel) {
+        this.addressModel = addressModel;
     }
 }

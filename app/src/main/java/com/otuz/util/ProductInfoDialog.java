@@ -19,6 +19,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 /**
+ * Shows product info to user in a dialog box.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 @SuppressLint("ValidFragment")

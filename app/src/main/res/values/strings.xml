@@ -3,35 +3,44 @@
     <string name="app_name">otuz</string>
 
     <!-- Facebook App ID -->
-    <string name="facebook_app_id">541610956001038</string>
+    <string name="facebook_app_id" translatable="false">541610956001038</string>
+    <!-- Google Maps API key -->
+    <string name="google_maps_api_key" translatable="false">AIzaSyBZvQlLK9CwE43SJ9WxCe6o60qp4jEQujQ</string>
 
     <!-- WalkthroughActivity Strings -->
     <string name="splash_screen_online_error">İnternet bağlantınızı kontrol edin</string>
     <!-- /WalkthroughActivity Strings -->
 
     <!-- WalkthroughActivity Strings -->
-    <string name="walkthrough_title_1">Title 1</string>
-    <string name="walkthrough_title_2">Title 2</string>
-    <string name="walkthrough_title_3">Title 3</string>
-    <string name="walkthrough_description_1">Description 1</string>
-    <string name="walkthrough_description_2">Description 2</string>
-    <string name="walkthrough_description_3">Description 3</string>
+    <string name="walkthrough_title_1" translatable="false">Lorem ipsum dolor sit amet.</string>
+    <string name="walkthrough_title_2" translatable="false">Ultima consectetur adipiscing elit.</string>
+    <string name="walkthrough_title_3" translatable="false">Sed at tempus leo.</string>
+    <string name="walkthrough_description_1" translatable="false">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque vel lorem sed.</string>
+    <string name="walkthrough_description_2" translatable="false">In hac habitasse platea dictumst. Suspendisse ullamcorper est sed suscipit consectetur. In viverra arcu et dapibus pretium. Proin accumsan in tellus maximus condimentum.</string>
+    <string name="walkthrough_description_3" translatable="false">Nam congue nulla in turpis interdum mollis. Ut eleifend nunc vitae erat venenatis feugiat. Cras vel felis a est efficitur commodo. Phasellus sodales eros purus.</string>
     <string name="next_button">Devam</string>
     <string name="login_with_facebook">Facebook ile Giriş Yap</string>
     <!-- /WalkthroughActivity Strings -->
 
-    <!-- ShoppingCartActivity Strings -->
-    <string name="user_cart_title">Sepet</string>
-    <!-- /ShoppingCartActivity Strings -->
+    <!-- ShoppingListActivity Strings -->
+    <string name="user_cart_title">Alışveriş Listesi</string>
+    <string name="product_price" translatable="false">%1s tl</string>
+    <!-- /ShoppingListActivity Strings -->
 
     <!-- Warning Strings -->
     <string name="warning_1">İstek başarısız</string>
     <string name="warning_2">İptal edildi</string>
     <string name="warning_3">Beklenmeyen hata</string>
+    <string name="warning_4">Adres, bina no ve kapı no zorunludur</string>
+    <string name="warning_5">Saat Seçin</string>
+    <string name="warning_6">Tarih seç</string>
+    <string name="warning_7">Tarihi onayla</string>
+    <string name="warning_8">Alışveriş listeniz henüz boş</string>
     <!-- /Warning Strings -->
 
     <!-- Success Strings -->
-    <string name="success_1">Biten ürün listeye eklendi</string>
+    <string name="success_1">Ürün listenize eklendi</string>
+    <string name="success_2">Listeniz onaylandı</string>
     <!-- /Success Strings -->
 
     <!-- API Error Strings -->

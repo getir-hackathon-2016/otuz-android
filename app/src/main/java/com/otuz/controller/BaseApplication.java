@@ -9,6 +9,7 @@ import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 /**
+ * Base application class for holding application context and temporary local data and set upping Picasso's caching mechanism.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class BaseApplication extends Application {

@@ -1,11 +1,12 @@
 package com.otuz.model;
 
 /**
+ * A POJO for product details.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class ProductModel {
 
-    private String   name,
+    private String  name,
                     photoUrl,
                     barcodeNumber,
                     price,

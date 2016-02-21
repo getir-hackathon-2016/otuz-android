@@ -171,7 +171,7 @@ public class SplashScreenActivity extends AppCompatActivity{
                                     // Store User data locally but temporary.
                                     BaseApplication.setUserModel(userModel);
 
-                                    startActivity(new Intent(SplashScreenActivity.this, ShoppingCartActivity.class));
+                                    startActivity(new Intent(SplashScreenActivity.this, ShoppingListActivity.class));
                                     SplashScreenActivity.this.finish();
 
                                 } else {
@@ -180,7 +180,7 @@ public class SplashScreenActivity extends AppCompatActivity{
                                     if (!httpFailStatusCodeHandler.handleCode(daoResponse.getError().getErrorCode())) {
                                         // Error code isn't a Http status code, then it should be an API error code. So handle it.
                                         APIErrorCodeHandler apiErrorCodeHandler = new APIErrorCodeHandler(SplashScreenActivity.this);
-                                        apiErrorCodeHandler.handleErrorCode(daoResponse.getError().getErrorCode());
+                                        apiErrorCodeHandler.handleErrorCode(daoResponse.getError().getErrorCode(),daoResponse.getError().getErrorMessage());
                                     }
 
                                 }

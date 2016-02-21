@@ -1,6 +1,7 @@
 package com.otuz.constant;
 
 /**
+ * POJO for holding general constants.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class GeneralValues {

@@ -1,6 +1,7 @@
 package com.otuz.model;
 
 /**
+ * A POJO for walkthrough fragments.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class WalkthroughModel {

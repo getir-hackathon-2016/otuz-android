@@ -1,27 +1,39 @@
 package com.otuz.dao;
 
 import com.otuz.constant.GeneralValues;
+import com.otuz.model.AddressModel;
 import com.otuz.model.DAOResponse;
 import com.otuz.model.ErrorModel;
 import com.otuz.model.ProductModel;
 import com.otuz.model.ServerResponseModel;
+import com.otuz.model.UserModel;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
- * Responsible for handling product data operation end-points.
- * Created by AhmetOguzhanBasar on 20.02.2016.
+ * Confirming User's shopping list.
+ * Created by AhmetOguzhanBasar on 21.02.2016.
  */
-public class ProductDAOImpl implements IProductDAO{
+public class OrderDAOImpl implements IOrderDAO{
 
     @Override
-    public DAOResponse getProductViaBarcodeNumber(String barcodeNumber) {
+    public DAOResponse confirmShoppingList(String facebookUserId, String deliveryDate) {
 
         DAOResponse daoResponse = new DAOResponse();
+
+        final HashMap<String, String> functionParameters = new HashMap<>();
+
+        functionParameters.put("facebookUserId" , facebookUserId);
+        functionParameters.put("deliveryDate"   , deliveryDate);
 
         try {
 
             IServerRequestDAO serverRequestDAO = new ServerRequestDAOImpl();
-            ServerResponseModel serverResponse = serverRequestDAO.performGetRequest(GeneralValues.BASE_URL + "products/" + barcodeNumber, false);
+            ServerResponseModel serverResponse = serverRequestDAO.performPostRequest(GeneralValues.BASE_URL + "orders", functionParameters, false);
 
             if(serverResponse.isSuccess()){
                 // There is not any error on server connection, let's parse the api error and data.
@@ -38,28 +50,8 @@ public class ProductDAOImpl implements IProductDAO{
 
                 error.setErrorCode(errorCode);
 
-                // Parsing Product Data.
-                ProductModel productModel = new ProductModel();
-
-                JSONObject productJSONObject    = jsonParseDAO.getJsonObjectFromObject(responseAsJsonObject, "data");
-                String productId                = jsonParseDAO.getStringValue(productJSONObject, "_id");
-                String productName              = jsonParseDAO.getStringValue(productJSONObject, "name");
-                String productPhoto             = jsonParseDAO.getStringValue(productJSONObject, "photoUrl");
-                String barcodeNo                = jsonParseDAO.getStringValue(productJSONObject, "barcodeNumber");
-                String price                    = jsonParseDAO.getStringValue(productJSONObject, "price");
-                String quantity                 = jsonParseDAO.getStringValue(productJSONObject, "quantity");
-
-                // Setting up model with parsed data.
-                productModel.setProductId(productId);
-                productModel.setName(productName);
-                productModel.setPhotoUrl(productPhoto);
-                productModel.setBarcodeNumber(barcodeNo);
-                productModel.setPrice(price);
-                productModel.setQuantity(quantity);
-
                 // Setting up DAOResponse with error and data.
                 daoResponse.setError(error);
-                daoResponse.setObject(productModel);
 
             }else{
                 // Http status code 1xx - 3xx - 4xx - 5xx.

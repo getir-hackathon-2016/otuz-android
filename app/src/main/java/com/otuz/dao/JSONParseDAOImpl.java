@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
+ * Handles all JSON parse operation with inner try-catch mechanism.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class JSONParseDAOImpl implements IJSONParseDAO {

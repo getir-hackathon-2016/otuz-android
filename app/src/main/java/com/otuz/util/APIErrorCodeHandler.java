@@ -21,7 +21,7 @@ public class APIErrorCodeHandler {
         this.context = context;
     }
 
-    public void handleErrorCode(int errorCode){
+    public void handleErrorCode(int errorCode, String _errorMessage){
 
         String errorMessage;
 
@@ -37,7 +37,7 @@ public class APIErrorCodeHandler {
                 errorMessage = context.getResources().getString(R.string.api_error_3);
                 break;
             default  :
-                errorMessage = "";
+                errorMessage = _errorMessage;
                 break;
 
         }

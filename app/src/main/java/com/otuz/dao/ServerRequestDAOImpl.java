@@ -23,16 +23,16 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
+ * Makes server calls.
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class ServerRequestDAOImpl implements IServerRequestDAO{
-
 
     /**
      * Performing a "GET" request.
      * @param requestURL URL that will be requested.
      * @param isAuthorizationRequired Is authorization required for this request or not.
-     * @return
+     * @return Returns a ServerResponseModel
      */
     @Override
     public ServerResponseModel performGetRequest(String requestURL, boolean isAuthorizationRequired) {

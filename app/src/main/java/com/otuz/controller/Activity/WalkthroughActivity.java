@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -35,8 +33,6 @@ import com.otuz.model.UserModel;
 import com.otuz.model.WalkthroughModel;
 import com.otuz.util.APIErrorCodeHandler;
 import com.otuz.util.HttpFailStatusCodeHandler;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -149,7 +145,7 @@ public class WalkthroughActivity extends AppCompatActivity {
                                     // Store User data locally but temporary.
                                     BaseApplication.setUserModel(userModel);
 
-                                    startActivity(new Intent(WalkthroughActivity.this, ShoppingCartActivity.class));
+                                    startActivity(new Intent(WalkthroughActivity.this, ShoppingListActivity.class));
                                     WalkthroughActivity.this.finish();
 
                                 } else {
@@ -158,7 +154,7 @@ public class WalkthroughActivity extends AppCompatActivity {
                                     if (!httpFailStatusCodeHandler.handleCode(daoResponse.getError().getErrorCode())) {
                                         // Error code isn't a Http status code, then it should be an API error code. So handle it.
                                         APIErrorCodeHandler apiErrorCodeHandler = new APIErrorCodeHandler(WalkthroughActivity.this);
-                                        apiErrorCodeHandler.handleErrorCode(daoResponse.getError().getErrorCode());
+                                        apiErrorCodeHandler.handleErrorCode(daoResponse.getError().getErrorCode(),daoResponse.getError().getErrorMessage());
                                     }
 
                                 }

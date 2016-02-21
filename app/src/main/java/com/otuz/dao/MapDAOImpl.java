@@ -1,27 +1,35 @@
 package com.otuz.dao;
 
+import android.util.Log;
+
+import com.google.android.gms.maps.internal.IMapFragmentDelegate;
 import com.otuz.constant.GeneralValues;
 import com.otuz.model.DAOResponse;
 import com.otuz.model.ErrorModel;
-import com.otuz.model.ProductModel;
+import com.otuz.model.MapLocationModel;
 import com.otuz.model.ServerResponseModel;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Responsible for handling product data operation end-points.
- * Created by AhmetOguzhanBasar on 20.02.2016.
+ * Responsible for sending lat/long to Google and get that points address.
+ * Created by AhmetOguzhanBasar on 21.02.2016.
  */
-public class ProductDAOImpl implements IProductDAO{
+public class MapDAOImpl implements IMapDAO{
+
+    private static final String GOOGLE_MAPS_FORMATTED_ADDRESS_BASE_URL  = "https://maps.google.com/maps/api/geocode/json?latlng=";
+    private static final String GOOGLE_MAPS_CO_URL                      = "&sensor=false&language=" + "tr";
 
     @Override
-    public DAOResponse getProductViaBarcodeNumber(String barcodeNumber) {
+    public DAOResponse getFormattedAddressFromGoogleMaps(double _latitude, double _longitude){
 
         DAOResponse daoResponse = new DAOResponse();
 
         try {
 
             IServerRequestDAO serverRequestDAO = new ServerRequestDAOImpl();
-            ServerResponseModel serverResponse = serverRequestDAO.performGetRequest(GeneralValues.BASE_URL + "products/" + barcodeNumber, false);
+            ServerResponseModel serverResponse = serverRequestDAO.performGetRequest(GOOGLE_MAPS_FORMATTED_ADDRESS_BASE_URL + _latitude + "," + _longitude + GOOGLE_MAPS_CO_URL, false);
 
             if(serverResponse.isSuccess()){
                 // There is not any error on server connection, let's parse the api error and data.
@@ -39,27 +47,18 @@ public class ProductDAOImpl implements IProductDAO{
                 error.setErrorCode(errorCode);
 
                 // Parsing Product Data.
-                ProductModel productModel = new ProductModel();
+                MapLocationModel mapLocationModel = new MapLocationModel();
 
-                JSONObject productJSONObject    = jsonParseDAO.getJsonObjectFromObject(responseAsJsonObject, "data");
-                String productId                = jsonParseDAO.getStringValue(productJSONObject, "_id");
-                String productName              = jsonParseDAO.getStringValue(productJSONObject, "name");
-                String productPhoto             = jsonParseDAO.getStringValue(productJSONObject, "photoUrl");
-                String barcodeNo                = jsonParseDAO.getStringValue(productJSONObject, "barcodeNumber");
-                String price                    = jsonParseDAO.getStringValue(productJSONObject, "price");
-                String quantity                 = jsonParseDAO.getStringValue(productJSONObject, "quantity");
+                JSONArray resultJSONArray   = jsonParseDAO.getArrayFromObject(responseAsJsonObject, "results");
+                JSONObject addressResultJSON = (JSONObject) resultJSONArray.get(0);
+                String formattedAddress     = jsonParseDAO.getStringValue(addressResultJSON, "formatted_address");
 
                 // Setting up model with parsed data.
-                productModel.setProductId(productId);
-                productModel.setName(productName);
-                productModel.setPhotoUrl(productPhoto);
-                productModel.setBarcodeNumber(barcodeNo);
-                productModel.setPrice(price);
-                productModel.setQuantity(quantity);
+                mapLocationModel.setFormattedAddress(formattedAddress);
 
                 // Setting up DAOResponse with error and data.
                 daoResponse.setError(error);
-                daoResponse.setObject(productModel);
+                daoResponse.setObject(mapLocationModel);
 
             }else{
                 // Http status code 1xx - 3xx - 4xx - 5xx.

@@ -7,15 +7,15 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 
 import com.otuz.constant.GeneralValues;
-import com.otuz.listener.OnConnectivityTypeChangedListener;
+import com.otuz.listener.OnNetworkConnectivityChangedListener;
 
 /**
  * Created by AhmetOguzhanBasar on 20.02.2016.
  */
 public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 
-    // Reference to OnConnectivityTypeChangedListener interface.
-    private OnConnectivityTypeChangedListener connectivityTypeChangedListener = null;
+    // Reference to OnNetworkConnectivityChangedListener interface.
+    private OnNetworkConnectivityChangedListener connectivityTypeChangedListener = null;
 
 
     @Override
@@ -34,12 +34,12 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * Setting OnConnectivityTypeChangedListener interface.
+     * Setting OnNetworkConnectivityChangedListener interface.
      * @param context Context of an Activity which is registered an instance of this BroadcastReceiver.
      */
     public void setOnConnectivityTypeChangedListener(Context context) {
         try {
-            this.connectivityTypeChangedListener = (OnConnectivityTypeChangedListener)context;
+            this.connectivityTypeChangedListener = (OnNetworkConnectivityChangedListener)context;
         }catch(ClassCastException castException){
             Log.d(GeneralValues.APP_TAG, "ConnectivityBroadcastReceiver - setOnConnectivityTypeChangedListener : error " + castException.toString());
         }

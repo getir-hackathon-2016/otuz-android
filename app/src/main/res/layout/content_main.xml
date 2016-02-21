@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".controller.activity.ShoppingCartActivity"
+    tools:context=".controller.activity.ShoppingListActivity"
     tools:showIn="@layout/activity_shopping_cart">
 
     <android.support.v7.widget.RecyclerView
@@ -13,5 +13,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="3"
+        android:layout_marginTop="-50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/choose_date_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:background="@color/grey_tone_2"
+            android:textColor="@color/white"
+            android:text="@string/warning_6"/>
+
+        <TextView
+            android:id="@+id/confirm_shopping_list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+            android:text="@string/warning_7"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/empty_list_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="14dp"
+        android:textColor="@color/grey_tone_1"
+        android:text="@string/warning_8"/>
 
 </RelativeLayout>

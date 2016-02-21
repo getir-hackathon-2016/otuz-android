@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/address_edittext_container">
+
+        <fragment
+            android:id="@+id/google_map_fragment"
+            class="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/marker_google_map"
+            android:layout_above="@+id/fill_address_from_map_button"/>
+
+        <TextView
+            android:id="@+id/fill_address_from_map_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Adresi haritadan doldur"
+            android:textSize="13dp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/selector_increase_decrease_button" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/address_edittext_container"
+        android:layout_width="330dp"
+        android:layout_height="280dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15dp">
+
+        <LinearLayout
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/address_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:layout_above="@+id/no_edit_text_holder"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/shape_bordered_background"
+                android:hint="Adres"
+                android:textColorHint="@color/grey_tone_2"
+                android:textSize="12dp" />
+
+            <RelativeLayout
+                android:id="@+id/no_edit_text_holder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:weightSum="5"
+                android:layout_marginBottom="10dp"
+                android:layout_above="@+id/landmark_edit_text">
+
+                <EditText
+                    android:id="@+id/building_no_edit_text"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/shape_bordered_background"
+                    android:hint="Bina no"
+                    android:textColorHint="@color/grey_tone_2"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/door_no_edit_text"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/shape_bordered_background"
+                    android:hint="Kapı no"
+                    android:textColorHint="@color/grey_tone_2"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/landmark_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/shape_bordered_background"
+                android:hint="Adres tarifi"
+                android:textColorHint="@color/grey_tone_2"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/update_user_address_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:text="Adresimi güncelle"
+                android:textAllCaps="false"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:background="@drawable/selector_big_button_background"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

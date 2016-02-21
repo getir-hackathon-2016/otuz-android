@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">otuz</string>
+    <string name="api_error_1">Database error</string>
+    <string name="api_error_2">Not found</string>
+    <string name="api_error_3">Product not found</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="negative_1">Cancel</string>
+    <string name="next_button">Next</string>
+    <string name="positive_1">Okay</string>
+    <string name="product_info_title">Confirm product</string>
+    <string name="splash_screen_online_error">Check your internet connection</string>
+    <string name="success_1">Product added to your list</string>
+    <string name="success_2">Your list confirmed</string>
+    <string name="user_cart_title">Shopping List</string>
+    <string name="warning_1">Request failed</string>
+    <string name="warning_2">Canceled</string>
+    <string name="warning_3">Unexpected error</string>
+    <string name="warning_4">Address, building no and door no required</string>
+    <string name="warning_5">Choose Time</string>
+    <string name="warning_6">Choose date</string>
+    <string name="warning_7">Confirm date</string>
+    <string name="warning_8">Your shopping list is empty</string>
+</resources>
